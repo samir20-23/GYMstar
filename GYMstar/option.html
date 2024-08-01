@@ -1,0 +1,208 @@
+<!--  -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+      }
+      :root {
+        --black: black;
+        --white: white;
+        --blue1: #3648eb;
+        --color1: rgb(255, 109, 109);
+        --color2: rgb(255, 173, 66);
+      }
+      #backgroundBlur {
+        background: #1b1f25;
+        width: 100%;
+        height: 203vh;
+        z-index: -2;
+        position: absolute;
+        z-index: -1;
+      }
+      .backgroundBlur {
+        width: 100%;
+        filter: blur(5px);
+      }
+      .page {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .options {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        flex-wrap: wrap;
+        gap: 50px;
+        padding: 70px 20px;
+      }
+      .options img {
+        width: 100%;
+        max-width: 100px;
+        min-width: 100px;
+        box-shadow: 0 0 8px -4px var(--black);
+        border-radius: 50px;
+      }
+      #option {
+        text-align: center;
+        color: var(--blue1);
+        text-shadow: 0 0 1px var(--black);
+        border-radius: 48px;
+      }
+      #option img {
+        border-radius: 12px;
+        background-color: rgb(255, 255, 255);
+        font-size: 100px;
+        box-shadow: 0 0 14px -2px #e8f5ff;
+      }
+      /* background option  */
+      #backOption {
+        z-index: 2;
+        background: var(--white);
+        width: 100%;
+        height: 100vh;
+        position: absolute;
+        top: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      /* back */
+      #lastBack {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 30px 0;
+      }
+      /* last optiuon  */
+      #optionLast {
+        width: 100%;
+        max-width: 300px;
+        min-width: 100px;
+      }
+      /* img last  */
+      #imgLast {
+        width: 100%;
+        padding: 50px 0;
+      }
+      #back {
+        border: none;
+        padding: 10px 40px;
+        border-radius: 9px;
+        background: var(--blue1);
+        color: var(--white);
+      }
+
+      @media (max-width: 879px) {
+        #backgroundBlur {
+          height: 235vh;
+        }
+      }
+      @media (max-width: 740px) {
+        #backgroundBlur {
+          height: 143vh;
+        }
+      }
+      @media (max-width: 590px) {
+        #backgroundBlur {
+          height: 325vh;
+        }
+      }
+      @media (max-width: 444px) {
+        #backgroundBlur {
+          height: 457vh;
+        }
+      }
+
+      @media (max-width: 290px) {
+        #backgroundBlur {
+          height: 750vh;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="backgroundBlur">
+      <img src="option/op/male_strength_training.webp" class="backgroundBlur" />
+    </div>
+    <div class="page">
+      <div class="options" id="options"></div>
+    </div>
+
+    <script>
+      let urlParams = new URLSearchParams(window.location.search);
+      let type = urlParams.get("type");
+
+      if (type) {
+        let options = document.getElementById("options");
+
+        let pathImg = "option/" + type + "/";
+        let typeImg = ".gif";
+        //
+        let lastBack = document.createElement("div");
+        lastBack.id = "lastBack";
+
+        let back = document.createElement("button");
+        back.innerHTML = "Cansel";
+        back.id = "back";
+
+        // back
+        let total = 60;
+        for (let i = 1; i < total; i++) {
+          //
+          let option = document.createElement("div");
+          option.id = "option";
+          //
+          let img = document.createElement("img");
+          img.src = pathImg + i + typeImg;
+          //
+          let tempImg = new Image();
+          tempImg.onload = () => {
+            //
+            option.appendChild(img);
+            options.appendChild(option);
+            lastBack.appendChild(back);
+            options.appendChild(lastBack);
+            back.addEventListener("click", () => {
+              window.location = "index.html";
+            });
+            //
+            let selectOption = 0;
+            option.addEventListener("click", () => {
+              let backOption = document.createElement("div");
+              backOption.id = "backOption";
+              options.style.display = "none";
+              document.getElementById("backgroundBlur").style.display = "none";
+              document.body.appendChild(backOption);
+              backOption.appendChild(option);
+              option.id = "optionLast";
+              img.id = "imgLast";
+              //  back
+              // background back
+
+              backOption.appendChild(lastBack);
+              //  back
+
+              back.addEventListener("click", () => {
+                window.location.reload();
+              });
+            });
+          };
+          tempImg.src = img.src;
+        }
+      } else {
+        window.location = "index.html";
+      }
+    </script>
+  </body>
+</html>

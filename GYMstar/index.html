@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+      }
+      :root {
+        --black: black;
+        --white: white;
+        --blue1: #3648eb;
+        --color1: rgb(255, 109, 109);
+        --color2: rgb(255, 173, 66);
+      }
+      #backgroundBlur {
+        background: #1b1f25;
+        width: 100%;
+        height: 140vh;
+        z-index: -2;
+        position: absolute;
+        z-index: -1;
+      }
+      .backgroundBlur {
+        width: 100%;
+        filter: blur(2px);
+      }
+      .page {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .options {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        flex-wrap: wrap;
+        gap: 50px;
+        padding: 70px 20px;
+      }
+      .options img {
+        width: 100%;
+        max-width: 120px;
+        min-width: 100px;
+        box-shadow: 0 0 8px -4px var(--black);
+        border-radius: 50px;
+      }
+      #option {
+        text-align: center;
+        color: var(--blue1);
+        text-shadow: 0 0 1px var(--black);
+      }
+
+      @media (max-width: 440px) {
+        #backgroundBlur {
+          height: 140vh;
+        }
+      }
+      @media (max-width: 330px) {
+        #backgroundBlur {
+          height: 234vh;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="backgroundBlur">
+      <img src="option/op/male_strength_training.webp" class="backgroundBlur" />
+    </div>
+    <div class="page">
+      <div class="options" id="options"></div>
+    </div>
+
+    <script>
+      let options = document.getElementById("options");
+
+      let pathImg = "option/op/";
+      let typeImg = ".webp";
+
+      let imgs = [
+        "Shoulders",
+        "Chest",
+        "Biceps",
+        "Abdomen",
+        "Adductors",
+        "Traps",
+        "Triceps",
+      ];
+
+      imgs.forEach((element) => {
+        let option = document.createElement("div");
+        option.id = "option";
+
+        let img = document.createElement("img");
+        img.src = pathImg + element + typeImg;
+
+        let title = document.createElement("div");
+        title.id = "title";
+        title.innerHTML = element;
+
+        option.appendChild(img);
+        option.appendChild(title);
+        options.appendChild(option);
+        option.addEventListener("click", () => {
+          window.location = `option.html?type=${element}`;
+        });
+      });
+    </script>
+  </body>
+</html>
